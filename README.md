@@ -47,10 +47,14 @@ graphrag/
 ## Stack
 
 ### Core Framework
-- **LangChain** (^0.2.0) - LLM application framework
-- **LangChain Community** (^0.2.0) - Community integrations
+- **LangChain** (^0.3.0) - LLM application framework
+- **LangChain Community** (^0.3.0) - Community integrations
 - **LangChain Ollama** (^0.3.8) - Ollama LLM integration
 - **LlamaIndex** (^0.14.0) - Data framework for LLM apps
+
+### Local LLM (Ollama)
+- **Ollama** - Installed and running at `127.0.0.1:11434`
+- **Llama 3.2** - Downloaded and ready (2GB model)
 
 ### Graph Database
 - **Neo4j** (^6.0.0) - Graph database driver
@@ -110,3 +114,34 @@ poetry run jupyter lab
 # Stop services
 docker compose down
 ```
+
+## Using Ollama (Local LLM)
+
+**Direct terminal usage:**
+```bash
+# Interactive chat
+ollama run llama3.2
+
+# List installed models
+ollama list
+
+# Pull additional models
+ollama pull llama3.2:1b  # Smaller/faster (1.3GB)
+ollama pull mistral      # Alternative model
+ollama pull codellama    # For code tasks
+```
+
+**Python/LangChain usage:**
+```python
+from langchain_ollama import OllamaLLM
+
+llm = OllamaLLM(model="llama3.2")
+response = llm.invoke("What is a knowledge graph?")
+print(response)
+```
+
+**Test connectivity:**
+```bash
+poetry run python test_ollama.py
+```
+
